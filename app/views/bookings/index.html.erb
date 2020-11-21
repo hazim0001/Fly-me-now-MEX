@@ -1,0 +1,49 @@
+<!-- NAVBAR -->
+<%= render "shared/navbar" %>
+<!-- MAIN CONTENT -->
+<div class="container my-3 min-vh-100">
+  <div class="row">
+    <div class="col-12">
+      <div class="px-5 py-1 mt-5 small-shadow" style="height: 100px; border-radius: 16px; background-color: rgba(0,0,0,0.5); color: white;">
+        <h1 class="font-weight-bold" style="font-size: 40px;">My Bookings</h1>
+        <p ><span>You have <%= @bookings.count %> Bookings</span></p><br><br>
+      </div>
+      <br>
+      <% if notice %>
+        <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+          <p><%= notice %></p>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <% end %>
+      <% @bookings.each do |booking| %>
+        <div class="card my-5 small-shadow" style="height: 500px; border-radius: 16px; background-color: rgba(0,0,0,0.5); color: white;">
+          <% if booking.airplane.photos.attached? %>
+            <div class="container h-50" style="background-image: url(<%= cl_image_path booking.airplane.photos.first.key %>); background-position: center; background-size: cover; border-radius: 16px 16px 0 0;"></div>
+          <% else %>
+            <div class="container h-50" style="background-image: url('https://images.unsplash.com/photo-1474302770737-173ee21bab63?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1982&q=80'); background-position: center; background-size: cover; border-radius: 16px 16px 0 0;"></div>
+          <% end %>
+          <div class="card-body p-5">
+            <div class="d-flex flex-row justify-content-between">
+              <div>
+                <h3 class="card-title"><%= booking.airplane.model %></h3>
+                <br>
+                <span class="badge badge-light">Start time</span><span> <%= booking.start_time %></span><br>
+                <span class="badge badge-light">End time</span><span> <%= booking.end_time %></span>
+                <br><br>
+                <p class="card-text"><small class="text-muted">Last updated on <%= booking.updated_at %></small></p>
+              </div>
+              <div class="pt-5">
+                <%= link_to 'Update', edit_booking_path(booking), class: "btn btn-light my-2 btn-sm" %>
+                <%= link_to 'Delete', booking_path(booking), method: :delete, data: { confirm: "Are you sure you wanna delete this booking"}, class: "btn btn-outline-light btn-sm my-2" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<br><br>
+<%= render "shared/footer" %>

@@ -1,0 +1,26 @@
+<%= render "shared/navbar" %>
+<!-- MAIN CONTENT -->
+<div class="container my-5 d-flex align-items-center justify-content-center" style="height: 75vh;">
+  <div class="row justify-content-center">
+    <br>
+    <div class="col-lg-10 p-5 mt-3 small-shadow" style="width: 50vw; border-radius: 16px; background-color: rgba(0,0,0,0.5); color: white;">
+      <h1 class="font-weight-bold">Edit your booking</h1><br>
+      <%= simple_form_for @booking do |f| %>
+        <div class="form-group">
+          <%= f.input :start_time, wrapper_html: { class: 'flex-select' }, as: :datetime, html5: true  %>
+        </div>
+        <div class="form-group">
+          <%= f.input :end_time, wrapper_html: { class: 'flex-select' }, as: :datetime, html5: true  %>
+        </div>
+        <br>
+        <div class="d-flex flex-column justify-content-between align-items-center">
+          <%= f.submit 'Update my booking', class: "btn btn-outline-light" %>
+          <%= link_to 'Delete Booking', booking_path, method: :delete, class: "btn btn-outline-light my-2" %>
+        </div>
+        <div class="text-center my-2"><%= link_to 'Cancel', bookings_path, class: "text-light" %></div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= render "shared/footer" %>

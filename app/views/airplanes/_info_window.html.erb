@@ -1,0 +1,10 @@
+
+
+<div class="card bg-light" style="width: 10rem; border-radius: 16px;">
+  <div class="card-body">
+    <h5 class="card-title"><%= airplane.model %></h5>
+    <h6 class="card-subtitle mb-2 text-muted"><%= airplane.price %> $</h6>
+    <%= link_to "Fly me now", airplane_path(airplane.id), class:"btn btn-outline-secondary btn-sm" %>
+  </div>
+</div>
+

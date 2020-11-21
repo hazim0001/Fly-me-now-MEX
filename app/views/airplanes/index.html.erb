@@ -1,0 +1,121 @@
+<!-- NAVBAR -->
+<div class="navbar navbar-expand-lg navbar-light gradient padding-zero" style="height: 100px;">
+  <div class="container-fluid justify-content-between">
+    <%= link_to airplanes_path do%>
+      <%= image_tag'logo_white.png', style:"height:60px",class:"pl-4"%>
+    <% end %>
+    <div class="dropdown my-2 my-sm-0 mx-2">
+      <h3 class="my-0 nav-link dropdown-toggle d-flex align-items-center text-white" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="far fa-user-circle text-white"></i>
+      </h3>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+        <% if policy(Airplane).create? %>
+          <%= link_to "Add Airplane", new_airplane_path, class:"dropdown-item" %>
+        <% else %>
+          <%= link_to "My bookings", bookings_path, class:"dropdown-item" %>
+        <% end %>
+        <div class="dropdown-divider"></div>
+        <%= link_to "Sign out", destroy_user_session_path, method: :delete, class:"dropdown-item" %>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- MAIN CONTENT -->
+<div class="container mt-4 mw-100">
+  <% if notice %>
+  <div class="alert alert-secondary alert-dismissible fade show rounded" role="alert">
+    <p><%= notice %></p>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <% end %>
+  <div class="row margin-10">
+    <div class="col-lg-12 p-3">
+
+      <h1 class="font-weight-bold text-center" style="font-size: 70px;"><strong>Fly Me Now</strong></h1>
+      <p class="text-center"><em>Where will tomorrow take you? Fly in our <%= @airplanes.count %> airplanes</em></p>
+
+    </div>
+    <!-- search bar -->
+    <form class="col-lg-8 simple_form search justify-content-center p-3 mx-auto" action="/airplanes" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <div class="search-form-control form-group  round-shadow">
+          <input class="form-control string required round-shadow pr-5" type="text" placeholder="Which jet you wanna get on today.." name="query" value="<%= params[:query] %>" id="search_query" />
+          <button name="button" type="submit" class="btn btn-secondary btn-flat small-shadow" style="width: 120px; border-radius:30px;">
+            <i class="fas fa-search"></i> Search
+          </button>
+        </div>
+    </form>
+  </div>
+  <div class="row container-veronica">
+    <div class="cards p-3">
+      <% @airplanes.each do |airplane| %>
+        <div class="card d-flex flex-row mr-3 align-items-center small-shadow" style="height: 180px; border-radius: 16px; background-color: rgba(0,0,0,0.5); color: white;">
+          <div class="p-3">
+            <% if airplane.photos.attached? %>
+              <% if airplane.photos.count > 1 %>
+                <div id="carousel-<%=airplane.id %>" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner" style="width: 200px; height: 140px; border-radius: 16px; border: none;">
+                    <div class="carousel-item active">
+                      <%= cl_image_tag airplane.photos.last.key, class:"d-block w-100", style:"height: 140px; object-fit: cover; object-position: center top;" %>
+                    </div>
+                    <% remaining_photos =  airplane.photos.limit(airplane.photos.count - 1) %>
+                    <% remaining_photos.each do |photo| %>
+                    <div class="carousel-item">
+                      <%= cl_image_tag photo.key, class:"d-block w-100", style:"height: 140px; object-fit: cover; object-position: center top;" %>
+                    </div>
+                    <% end %>
+                  </div>
+                  <a class="carousel-control-prev" href="#carousel-<%=airplane.id %>" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carousel-<%=airplane.id %>" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>
+              <% else %>
+                <div class="banner-card" style="width: 200px; height: 140px; border-radius: 16px; border: none; background-image: url('<%= cl_image_path airplane.photos.first.key %>'); background-size: cover; background-position: center;"></div>
+              <% end %>
+            <% else %>
+                <div class="banner-card" style="width: 200px; height: 140px; border-radius: 16px; border: none; background-image: url('https://images.unsplash.com/photo-1540962351504-03099e0a754b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1334&q=80'); background-size: cover; background-position: center;"></div>
+            <% end %>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title font-weight-bold d-flex flex-row justify-content-between mr-3 mt-4">
+              <div><%= airplane.model %></div>
+              <div>
+                <i class="fas fa-user-friends"> <%= airplane.capacity %></i>
+                <i class="fas fa-euro-sign px-2"> <%= airplane.price %></i>
+                <i class="fas fa-star"> <%= airplane.rating %></i>
+              </div>
+            </h5>
+            <div class="p-3 d-flex mr-3">
+              <% unless policy(airplane).update? %><%= link_to "Fly me now", airplane_path(airplane.id), class:"btn btn-outline-light" %><% end %>
+              <% if policy(airplane).update? %>
+                  <%= link_to "Edit", edit_airplane_path(airplane.id), class:"btn btn-outline-warning" %>
+                  <%= link_to "Remove",
+                            airplane_path(airplane.id),
+                            method: :delete,
+                            class:"btn btn-outline-danger",
+                            data: { confirm: "Are you sure?" } %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="pr-3 mb-3">
+      <div id="map"
+         style="border-radius: 16px; background: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4));"
+         class="mt-3 mr-3 vh-100 small-shadow"
+         data-markers="<%= @markers.to_json %>"
+         data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+    </div>
+  </div>
+</div>
+<br><br>
+
+<%= render "shared/footer" %>
+

@@ -1,0 +1,31 @@
+.signup-page {
+  width: 100%;
+}
+
+.big-box-singup {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+.btn {
+  width: 100%;
+  border-radius: 8px;
+  padding: auto 5px;
+  font-weight: bold;
+}
+
+
+.form-info {
+  color: white;
+}
+
+
+
+#new_user > div.form-actions.btn.btn-light > input {
+  padding-top: 0;
+  padding-bottom: 0;
+}

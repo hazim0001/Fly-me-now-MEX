@@ -1,0 +1,19 @@
+<!-- NAVBAR -->
+<%= render "shared/navbar" %>
+<!-- MAIN CONTENT -->
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-5 bg-light p-4 rounded-lg">
+      <h1 class="font-weight-bold">Edit your plane</h1>
+      <%= simple_form_for @airplane do |f| %>
+        <%= f.input :model %>
+        <%= f.input :capacity %>
+        <%= f.input :price %>
+        <%= f.submit 'Update my airplane', class: "btn btn-primary" %>
+        <%= link_to 'Cancel', @airplane, class: "btn btn-danger my-2" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<br><br>
+<%= render "shared/footer" %>

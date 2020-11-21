@@ -1,0 +1,51 @@
+/* We just give you a Gmaps with random width/height */
+#map {
+  width: 100%;
+  position: sticky;
+  top: 0;
+}
+
+.margin-10 {
+  margin: 20px 10px;
+}
+
+.container-veronica {
+  display: grid;
+  grid-template-columns: 5fr 3.5fr;
+  margin: 0 10px;
+}
+.cards {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(1fr);
+  grid-gap: 20px;
+}
+
+@media(max-width: 1200px) {
+  .container-veronica {
+    grid-template-columns: 1fr;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  #map {
+    display: none;
+  }
+}
+
+@media(max-width: 575px) {
+  .container-veronica {
+    grid-template-columns: 1fr;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  #map {
+    display: none;
+  }
+}
+

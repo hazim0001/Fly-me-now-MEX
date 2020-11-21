@@ -1,0 +1,53 @@
+.main-login-page {
+  // background-image: url("https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?ixlib=rb-1.2.1&auto=format&fit=crop&w=1349&q=80");
+  // height: 100vh;
+  // background-position: center;
+  // background-repeat: no-repeat;
+  // background-size: cover;
+  // position: fixed;
+  // top: 0;
+  // bottom: 0;
+  // left: 0;
+  // right: 0;
+  // display: flex;
+  
+}
+
+
+.carousel-as-background {
+  position: absolute;
+  z-index: -1; 
+}
+
+
+.carousel-background-image {
+  max-height: 100vh;
+  width: 100vw;
+  
+}
+
+.big-box {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text-holder {
+  color: white; 
+}
+
+
+#new_user > div.form-actions.btn.btn-light.mb-3 > input {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.form-box{
+  background-color: rgba(0,0,0,0.2);
+  padding:40px;
+  width:500px;
+  border-radius:16px;
+  color: white;
+}

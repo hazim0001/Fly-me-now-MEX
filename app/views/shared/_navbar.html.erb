@@ -1,0 +1,31 @@
+<div class="navbar navbar-expand-lg navbar-light gradient padding-zero" style="height: 100px;">
+  <div class="container-fluid justify-content-between">
+    <div class="container mx-0">
+      <%= link_to airplanes_path do%>
+        <%= image_tag'logo_white.png', style:"height:60px",class:"pl-4"%>
+      <% end %>
+    </div>
+    <div class="container mx-0" style="width: 500px;">
+      <form class="simple_form search justify-content-center w-75 mt-3" action="/airplanes" >
+        <div class="search-form-control form-group small-round-shadow">
+          <input class="form-control required pl-3" type="search" placeholder="Type here..." aria-label="Search" name="query" value="<%= params[:query] %>" style="font-size: 12px; border-radius: 90px; height: 40px;">
+          <button class="btn btn-secondary btn-flat small-shadow py-1" style="width: 75px; border-radius: 90px; font-size: 11px;" type="submit"><i class="fas fa-search"></i> Search</button>
+        </div>
+      </form>
+      <div class="dropdown">
+        <h3 class="my-0 nav-link dropdown-toggle d-flex align-items-center text-white" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="far fa-user-circle text-white"></i>
+        </h3>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <% if policy(Airplane).create? %>
+            <%= link_to "Add Airplane", new_airplane_path, class:"dropdown-item" %>
+          <% else %>
+            <%= link_to "My bookings", bookings_path, class:"dropdown-item" %>
+          <% end %>
+          <div class="dropdown-divider"></div>
+          <%= link_to "Sign out", destroy_user_session_path, method: :delete, class:"dropdown-item" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
